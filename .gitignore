@@ -1,0 +1,29 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Build Verzeichnisse
+/target/
+/build/
+
+# Log Dateien
+*.log
+
+# Temporäre Dateien
+*.swp
+*.bak
+
