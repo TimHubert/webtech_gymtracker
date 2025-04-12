@@ -1,4 +1,4 @@
-package com.timhubert.webtech_projekt;
+package com.htwberlin.webtech_projekt;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

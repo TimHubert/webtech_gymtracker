@@ -1,4 +1,4 @@
-package com.timhubert.webtech_projekt;
+package com.htwberlin.webtech_projekt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
