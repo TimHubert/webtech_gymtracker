@@ -27,10 +27,9 @@ public class Controller {
         exercise.add(new Exercise("Shoulder Press", "Machine", "Shoulders"));
 
         List<WeightsAndReps> weights = new ArrayList<>();
-        weights.add(new WeightsAndReps(exercise.get(0), new Integer[]{8, 7, 6}, new Double[]{60.0, 60.0, 57.5}));
-        weights.add(new WeightsAndReps(exercise.get(1), new Integer[]{7, 6, 6}, new Double[]{27.5, 30.0, 30.0}));
-        weights.add(new WeightsAndReps(exercise.get(2), new Integer[]{5, 4, 4}, new Double[]{40.0, 40.0, 40.0}));
-
+        weights.add(new WeightsAndReps(exercise.get(0), new ArrayList<>(Arrays.asList(8, 6, 5)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
+        weights.add(new WeightsAndReps(exercise.get(1), new ArrayList<>(Arrays.asList(5, 5, 5)), new ArrayList<>(Arrays.asList(60.0, 55.0, 55.0))));
+        weights.add(new WeightsAndReps(exercise.get(2), new ArrayList<>(Arrays.asList(7, 6, 4)), new ArrayList<>(Arrays.asList(50.0, 55.0, 60.0))));
         Workout workout = new Workout("Push", date, exercise, weights);
         return ResponseEntity.ok(workout);
     }

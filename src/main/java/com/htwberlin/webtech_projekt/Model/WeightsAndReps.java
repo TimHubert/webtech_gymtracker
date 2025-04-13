@@ -1,13 +1,15 @@
 package com.htwberlin.webtech_projekt.Model;
 
 
+import java.util.List;
+
 public class WeightsAndReps {
 
     private Exercise exercise;
-    private Integer[] reps;
-    private Double[] weights;
+    private List<Integer> reps;
+    private List<Double> weights;
 
-    public WeightsAndReps(Exercise exercise, Integer[] reps, Double[] weights) {
+    public WeightsAndReps(Exercise exercise, List<Integer> reps, List<Double> weights) {
         this.exercise = exercise;
         this.reps = reps;
         this.weights = weights;
@@ -22,19 +24,19 @@ public class WeightsAndReps {
         this.exercise = exercise;
     }
 
-    public Integer[] getReps() {
+    public List<Integer> getReps() {
         return reps;
     }
 
-    public void setReps(Integer[] reps) {
+    public void setReps(List<Integer> reps) {
         this.reps = reps;
     }
 
-    public Double[] getWeights() {
+    public List<Double> getWeights() {
         return weights;
     }
 
-    public void setWeights(Double[] weights) {
+    public void setWeights(List<Double> weights) {
         this.weights = weights;
     }
 
