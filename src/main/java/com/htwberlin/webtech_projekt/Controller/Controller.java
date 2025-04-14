@@ -20,7 +20,7 @@ public class Controller {
 
     @GetMapping("/workout")
     public ResponseEntity<Workout> getWorkout() {
-        Date date = new Date(1, 1, 2023);
+        Date date = new Date(125, 2, 2);
         List<Exercise> exercise = new ArrayList<>() ;
         exercise.add(new Exercise("Bench Press", "Bench", "Chest"));
         exercise.add(new Exercise("Triceps Extensions", "Cable Tower", "Triceps"));
