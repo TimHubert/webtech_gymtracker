@@ -1,6 +1,7 @@
 package com.htwberlin.webtech_projekt.Controller;
 import com.htwberlin.webtech_projekt.Model.Workout;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import com.htwberlin.webtech_projekt.Model.WeightsAndReps;
 import java.util.*;
 
 import com.htwberlin.webtech_projekt.Model.Exercise;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class Controller {
 

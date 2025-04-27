@@ -1,13 +1,10 @@
-<!-- src/views/Tracker.vue -->
 <template>
-  <div class="tracker">
-    <h2>Tracker</h2>
-    <p>Hier können Sie Ihre Aktivitäten aufzeichnen.</p>
+  <div>
+    <h1>Tracker</h1>
+    <WorkoutView />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Tracker',
-}
+<script setup>
+import WorkoutView from '../components/WorkoutView.vue'
 </script>
