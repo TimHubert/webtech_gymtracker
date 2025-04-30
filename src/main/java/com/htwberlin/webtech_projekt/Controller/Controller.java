@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import com.htwberlin.webtech_projekt.Model.WeightsAndReps;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import com.htwberlin.webtech_projekt.Service.WorkoutService;
+
+
 
 import java.util.*;
 
@@ -34,5 +39,11 @@ public class Controller {
         Workout workout = new Workout("Push", date, exercise, weights);
         return ResponseEntity.ok(workout);
     }
+
+    @PostMapping("/workout")
+    public Workout createWorkout(@RequestBody  Workout workout) {
+        return WorkoutService.save(workout);
+    }
+
 }
 
