@@ -47,9 +47,20 @@ public class Controller {
     }
 
     @PostMapping("/workout")
+    public ResponseEntity<?> createWorkout(@RequestBody Workout workout) {
+        if (workout.getName() == null || workout.getName().isEmpty()) {
+            return ResponseEntity.badRequest().body("Name des Workouts ist erforderlich");
+        }
+        if (workout.getExercise() == null || workout.getExercise().isEmpty()) {
+            return ResponseEntity.badRequest().body("Übungen sind erforderlich");
+        }
+        return ResponseEntity.ok(workoutService.save(workout));
+    }
+/*
+    @PostMapping("/workout")
     public Workout createWorkout(@RequestBody Workout workout) {
         return workoutService.save(workout);
-    }
+    }*/
 
 
     @GetMapping("/OneWorkout")
