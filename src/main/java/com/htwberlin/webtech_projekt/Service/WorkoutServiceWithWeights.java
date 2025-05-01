@@ -1,13 +1,12 @@
 package com.htwberlin.webtech_projekt.Service;
 
-import com.htwberlin.webtech_projekt.Model.Workout;
 import com.htwberlin.webtech_projekt.Model.WorkoutWithWeights;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WorkoutService {
+public class WorkoutServiceWithWeights {
 
-    public static Workout save(Workout workout) {
+    public static WorkoutWithWeights save(WorkoutWithWeights workout) {
         return workout;
     }
 }
