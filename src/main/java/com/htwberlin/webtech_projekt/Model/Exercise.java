@@ -8,6 +8,9 @@ public class Exercise {
     private String equipment;
     private String targetMuscleGroup;
 
+    public Exercise() {
+    }
+
     public Exercise(String name, String equipment, String targetMuscleGroup) {
         this.name = name;
         this.equipment = equipment;

@@ -2,9 +2,13 @@ package com.htwberlin.webtech_projekt.Model;
 
 import java.util.List;
 
+
 public class Workout {
         private String name;
         private List<Exercise> exercise;
+
+        public Workout() {
+        }
 
         public Workout(String name, List<Exercise> exercise) {
             this.name = name;

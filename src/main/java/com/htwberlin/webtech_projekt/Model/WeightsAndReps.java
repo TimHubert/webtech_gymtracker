@@ -8,6 +8,9 @@ public class WeightsAndReps {
     private List<Integer> reps;
     private List<Double> weights;
 
+    public WeightsAndReps() {
+    }
+
     public WeightsAndReps(List<Integer> reps, List<Double> weights) {
 
         this.reps = reps;

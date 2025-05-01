@@ -9,6 +9,8 @@ public class WorkoutWithWeights extends Workout {
     private LocalDate date;
     private List<WeightsAndReps> weights;
 
+    public WorkoutWithWeights() {
+    }
 
     public WorkoutWithWeights(Workout workout, LocalDate date , List<WeightsAndReps> weights) {
         super(workout.getName(), workout.getExercise());
