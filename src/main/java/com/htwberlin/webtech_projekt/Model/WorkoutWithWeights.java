@@ -1,13 +1,22 @@
 package com.htwberlin.webtech_projekt.Model;
+import jakarta.persistence.Entity;
+
 import java.time.LocalDate;
 import java.util.List;
+import jakarta.persistence.*;
 
 
-
-
+@Entity
 public class WorkoutWithWeights extends Workout {
     private LocalDate date;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<WeightsAndReps> weights;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     public WorkoutWithWeights() {
     }

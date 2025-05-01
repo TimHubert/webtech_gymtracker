@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.htwberlin.webtech_projekt.Service.WorkoutService;
 import java.time.LocalDate;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.*;
@@ -21,6 +21,14 @@ import com.htwberlin.webtech_projekt.Model.Exercise;
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class Controller {
+
+
+    @Autowired
+    private WorkoutServiceWithWeights workoutServiceWithWeights;
+
+    @Autowired
+    private WorkoutService workoutService;
+
 
     @GetMapping("/")
     public String index() {
@@ -34,18 +42,13 @@ public class Controller {
         exercise.add(new Exercise("Bench Press", "Bench", "Chest"));
         exercise.add(new Exercise("Triceps Extensions", "Cable Tower", "Triceps"));
         exercise.add(new Exercise("Shoulder Press", "Machine", "Shoulders"));
-
-        List<WeightsAndReps> weights = new ArrayList<>();
-        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(8, 6, 5)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
-        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(5, 5, 5)), new ArrayList<>(Arrays.asList(60.0, 55.0, 55.0))));
-        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(7, 6, 4)), new ArrayList<>(Arrays.asList(50.0, 55.0, 60.0))));
         Workout workout = new Workout("Push", exercise);
         return ResponseEntity.ok(workout);
     }
 
     @PostMapping("/workout")
-    public Workout createWorkout(@RequestBody  Workout workout) {
-        return WorkoutService.save(workout);
+    public Workout createWorkout(@RequestBody Workout workout) {
+        return workoutService.save(workout);
     }
 
 
@@ -58,7 +61,8 @@ public class Controller {
         exercise.add(new Exercise("Shoulder Press", "Machine", "Shoulders"));
 
         List<WeightsAndReps> weights = new ArrayList<>();
-        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(8, 6, 5)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
+
+        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(8,5,4)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(5, 5, 5)), new ArrayList<>(Arrays.asList(60.0, 55.0, 55.0))));
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(7, 6, 4)), new ArrayList<>(Arrays.asList(50.0, 55.0, 60.0))));
         Workout workout = new Workout("Push", exercise);
@@ -67,8 +71,8 @@ public class Controller {
     }
 
     @PostMapping("/OneWorkout")
-    public WorkoutWithWeights createWorkoutWithWeights(@RequestBody  WorkoutWithWeights WorkoutWithWeights) {
-        return WorkoutServiceWithWeights.save(WorkoutWithWeights);
+    public WorkoutWithWeights createWorkoutWithWeights(@RequestBody WorkoutWithWeights WorkoutWithWeights) {
+        return workoutServiceWithWeights.save(WorkoutWithWeights);
     }
 
 }

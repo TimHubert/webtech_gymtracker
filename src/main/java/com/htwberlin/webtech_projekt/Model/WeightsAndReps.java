@@ -1,11 +1,23 @@
 package com.htwberlin.webtech_projekt.Model;
 
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 
 import java.util.List;
 
+@Entity
 public class WeightsAndReps {
 
-    private List<Integer> reps;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ElementCollection
+    private List<Integer> reps;;
+
+    @ElementCollection
     private List<Double> weights;
 
     public WeightsAndReps() {
