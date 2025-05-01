@@ -5,23 +5,14 @@ import java.util.List;
 
 public class WeightsAndReps {
 
-    private Exercise exercise;
     private List<Integer> reps;
     private List<Double> weights;
 
-    public WeightsAndReps(Exercise exercise, List<Integer> reps, List<Double> weights) {
-        this.exercise = exercise;
+    public WeightsAndReps(List<Integer> reps, List<Double> weights) {
+
         this.reps = reps;
         this.weights = weights;
 
-    }
-
-    public Exercise getExercise() {
-        return exercise;
-    }
-
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
     }
 
     public List<Integer> getReps() {
