@@ -1,11 +1,6 @@
 package com.htwberlin.webtech_projekt.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -18,10 +13,11 @@ public class Workout {
 
     private String name;
 
-        @OneToMany(cascade = CascadeType.ALL)
-        private List<Exercise> exercise;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Exercise> exercise;
 
-        public Workout() {
+
+    public Workout() {
         }
 
         public Workout(String name, List<Exercise> exercise) {

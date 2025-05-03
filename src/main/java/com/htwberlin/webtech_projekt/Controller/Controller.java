@@ -1,6 +1,7 @@
 package com.htwberlin.webtech_projekt.Controller;
 import com.htwberlin.webtech_projekt.Model.Workout;
 import com.htwberlin.webtech_projekt.Model.WorkoutWithWeights;
+import com.htwberlin.webtech_projekt.Repository.WorkoutRepo;
 import com.htwberlin.webtech_projekt.Service.WorkoutServiceWithWeights;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +23,8 @@ import com.htwberlin.webtech_projekt.Model.Exercise;
 @RestController
 public class Controller {
 
+    @Autowired
+    private WorkoutRepo workoutRepository;
 
     @Autowired
     private WorkoutServiceWithWeights workoutServiceWithWeights;
@@ -85,6 +88,22 @@ public class Controller {
     public WorkoutWithWeights createWorkoutWithWeights(@RequestBody WorkoutWithWeights WorkoutWithWeights) {
         return workoutServiceWithWeights.save(WorkoutWithWeights);
     }
+
+    @GetMapping("/workouts")
+    public ResponseEntity<?> getAllWorkouts() {
+        try {
+            List<Workout> workouts = workoutRepository.findAll();
+            System.out.println("Workouts aus der DB: " + workouts); // Debug
+            return ResponseEntity.ok(workouts);
+        } catch (Exception e) {
+            e.printStackTrace(); // Fehler in der Konsole ausgeben
+            return ResponseEntity.status(500).body("Fehler beim Abrufen der Workouts");
+        }
+    }
+
+
+
+
 
 }
 
