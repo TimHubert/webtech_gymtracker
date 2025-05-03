@@ -18,12 +18,20 @@ public class Workout {
 
 
     public Workout() {
-        }
+    }
 
-        public Workout(String name, List<Exercise> exercise) {
-            this.name = name;
-            this.exercise = exercise;
-        }
+    public Workout(String name, List<Exercise> exercise) {
+        this.name = name;
+        this.exercise = exercise;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

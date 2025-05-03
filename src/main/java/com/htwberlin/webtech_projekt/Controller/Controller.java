@@ -1,24 +1,24 @@
 package com.htwberlin.webtech_projekt.Controller;
+
 import com.htwberlin.webtech_projekt.Model.Workout;
 import com.htwberlin.webtech_projekt.Model.WorkoutWithWeights;
 import com.htwberlin.webtech_projekt.Repository.WorkoutRepo;
 import com.htwberlin.webtech_projekt.Service.WorkoutServiceWithWeights;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import com.htwberlin.webtech_projekt.Model.WeightsAndReps;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.htwberlin.webtech_projekt.Service.WorkoutService;
+
 import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.*;
 
 import com.htwberlin.webtech_projekt.Model.Exercise;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class Controller {
@@ -40,8 +40,8 @@ public class Controller {
 
     @GetMapping("/workout")
     public ResponseEntity<Workout> getWorkout() {
-        LocalDate date = LocalDate.of(2024,2,2);
-        List<Exercise> exercise = new ArrayList<>() ;
+        LocalDate date = LocalDate.of(2024, 2, 2);
+        List<Exercise> exercise = new ArrayList<>();
         exercise.add(new Exercise("Bench Press", "Bench", "Chest"));
         exercise.add(new Exercise("Triceps Extensions", "Cable Tower", "Triceps"));
         exercise.add(new Exercise("Shoulder Press", "Machine", "Shoulders"));
@@ -68,15 +68,15 @@ public class Controller {
 
     @GetMapping("/OneWorkout")
     public ResponseEntity<WorkoutWithWeights> getWorkoutWithWeights() {
-        LocalDate date = LocalDate.of(2024,2,2);
-        List<Exercise> exercise = new ArrayList<>() ;
+        LocalDate date = LocalDate.of(2024, 2, 2);
+        List<Exercise> exercise = new ArrayList<>();
         exercise.add(new Exercise("Bench Press", "Bench", "Chest"));
         exercise.add(new Exercise("Triceps Extensions", "Cable Tower", "Triceps"));
         exercise.add(new Exercise("Shoulder Press", "Machine", "Shoulders"));
 
         List<WeightsAndReps> weights = new ArrayList<>();
 
-        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(8,5,4)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
+        weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(8, 5, 4)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(5, 5, 5)), new ArrayList<>(Arrays.asList(60.0, 55.0, 55.0))));
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(7, 6, 4)), new ArrayList<>(Arrays.asList(50.0, 55.0, 60.0))));
         Workout workout = new Workout("Push", exercise);
@@ -93,16 +93,30 @@ public class Controller {
     public ResponseEntity<?> getAllWorkouts() {
         try {
             List<Workout> workouts = workoutRepository.findAll();
-            System.out.println("Workouts aus der DB: " + workouts); // Debug
+            System.out.println("Workouts aus der DB: " + workouts);
             return ResponseEntity.ok(workouts);
         } catch (Exception e) {
-            e.printStackTrace(); // Fehler in der Konsole ausgeben
+            e.printStackTrace();
             return ResponseEntity.status(500).body("Fehler beim Abrufen der Workouts");
         }
     }
 
+    @DeleteMapping("/workout/{id}")
+    public ResponseEntity<?> deleteWorkout(@PathVariable Long id) {
+        if (!workoutRepository.existsById(id)) {
+            return ResponseEntity.status(404).body("Workout mit ID " + id + " nicht gefunden");
+        } else {
+            workoutService.deleteById(id);
+        }
+        return ResponseEntity.ok("Workout mit ID " + id + " wurde gelöscht");
+    }
 
 
+    @GetMapping("/workout/{Id}")
+    public ResponseEntity<?> getAWorkout(@PathVariable("Id") Long Id) {
+        Workout workout = workoutService.findById(Id);
+        return ResponseEntity.ok(workout);
+    }
 
 
 }

@@ -1,8 +1,10 @@
 package com.htwberlin.webtech_projekt.Model;
+
 import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import jakarta.persistence.*;
 
 
@@ -21,11 +23,20 @@ public class WorkoutWithWeights extends Workout {
     public WorkoutWithWeights() {
     }
 
-    public WorkoutWithWeights(Workout workout, LocalDate date , List<WeightsAndReps> weights) {
+    public WorkoutWithWeights(Workout workout, LocalDate date, List<WeightsAndReps> weights) {
         super(workout.getName(), workout.getExercise());
         this.date = date;
         this.weights = weights;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public LocalDate getDate() {
         return date;
@@ -38,6 +49,7 @@ public class WorkoutWithWeights extends Workout {
     public List<WeightsAndReps> getWeights() {
         return weights;
     }
+
     public void setWeights(List<WeightsAndReps> weights) {
         this.weights = weights;
     }
