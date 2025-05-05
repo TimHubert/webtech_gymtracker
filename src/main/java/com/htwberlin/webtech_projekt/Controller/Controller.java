@@ -92,6 +92,7 @@ public class Controller {
     @GetMapping("/workouts")
     public ResponseEntity<?> getAllWorkouts() {
         try {
+
             List<Workout> workouts = workoutRepository.findAll();
             System.out.println("Workouts aus der DB: " + workouts);
             return ResponseEntity.ok(workouts);
@@ -100,6 +101,9 @@ public class Controller {
             return ResponseEntity.status(500).body("Fehler beim Abrufen der Workouts");
         }
     }
+
+
+
 
     @DeleteMapping("/workout/{id}")
     public ResponseEntity<?> deleteWorkout(@PathVariable Long id) {
@@ -111,6 +115,31 @@ public class Controller {
         return ResponseEntity.ok("Workout mit ID " + id + " wurde gelöscht");
     }
 
+    @DeleteMapping("/workout/{id}/{exId}")
+    public ResponseEntity<?> deleteExercise(@PathVariable Long id, @PathVariable Long exId) {
+        if (!workoutRepository.existsById(id)) {
+            return ResponseEntity.status(404).body("Workout with ID " + id + " not found");
+        }
+
+        Workout workout = workoutService.findById(id);
+        if (workout == null) {
+            return ResponseEntity.status(404).body("Workout with ID " + id + " not found");
+        }
+
+        List<Exercise> exercises = workout.getExercise();
+        if (exercises != null && exercises.removeIf(exercise -> exercise.getId().equals(exId))) {
+            workoutService.save(workout); // Save the updated workout
+        } else {
+            return ResponseEntity.status(404).body("Exercise with ID " + exId + " not found in workout");
+        }
+
+        if (exercises == null || exercises.isEmpty()) {
+            workoutService.deleteById(id); // Delete the workout if no exercises remain
+            return ResponseEntity.ok("Workout with ID " + id + " and its exercises were deleted");
+        }
+
+        return ResponseEntity.ok("Exercise with ID " + exId + " was deleted from workout with ID " + id);
+    }
 
     @GetMapping("/workout/{Id}")
     public ResponseEntity<?> getAWorkout(@PathVariable("Id") Long Id) {

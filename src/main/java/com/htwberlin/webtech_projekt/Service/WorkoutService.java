@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.htwberlin.webtech_projekt.Repository.WorkoutWithWeightsRepo;
 import com.htwberlin.webtech_projekt.Repository.WorkoutRepo;
 import com.htwberlin.webtech_projekt.Model.Workout;
+import com.htwberlin.webtech_projekt.Model.Exercise;
+
+import java.util.List;
 
 @Service
 public class WorkoutService {
@@ -27,4 +30,12 @@ public class WorkoutService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    public void deleteExerciseById(Long workoutId, Long exerciseId) {
+        Workout workout = repository.findById(workoutId).orElseThrow(() -> new IllegalArgumentException("Workout not found"));
+        List<Exercise> exercises = workout.getExercise();
+        exercises.removeIf(exercise -> exercise.getId().equals(exerciseId));
+        repository.save(workout);
+    }
+
 }
