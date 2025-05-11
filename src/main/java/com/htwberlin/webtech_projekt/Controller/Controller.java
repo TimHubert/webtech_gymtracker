@@ -3,12 +3,15 @@ package com.htwberlin.webtech_projekt.Controller;
 import com.htwberlin.webtech_projekt.Model.Workout;
 import com.htwberlin.webtech_projekt.Model.WorkoutWithWeights;
 import com.htwberlin.webtech_projekt.Repository.WorkoutRepo;
+import com.htwberlin.webtech_projekt.Repository.WorkoutWithWeightsRepo;
 import com.htwberlin.webtech_projekt.Service.WorkoutServiceWithWeights;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import com.htwberlin.webtech_projekt.Model.WeightsAndReps;
 import com.htwberlin.webtech_projekt.Service.WorkoutService;
+import com.htwberlin.webtech_projekt.Service.WorkoutServiceWithWeights;
+
 
 import java.time.LocalDate;
 
@@ -25,6 +28,9 @@ public class Controller {
 
     @Autowired
     private WorkoutRepo workoutRepository;
+
+    @Autowired
+    private WorkoutWithWeightsRepo workoutWithWeightsRepository;
 
     @Autowired
     private WorkoutServiceWithWeights workoutServiceWithWeights;
@@ -92,7 +98,6 @@ public class Controller {
     @GetMapping("/workouts")
     public ResponseEntity<?> getAllWorkouts() {
         try {
-
             List<Workout> workouts = workoutRepository.findAll();
             System.out.println("Workouts aus der DB: " + workouts);
             return ResponseEntity.ok(workouts);
@@ -103,7 +108,17 @@ public class Controller {
     }
 
 
-
+    @GetMapping("/workoutsWithWeights")
+    public ResponseEntity<?> getAllWorkoutsWithWeights() {
+        try {
+            List<WorkoutWithWeights> workouts = workoutWithWeightsRepository.findAll();
+            System.out.println("Workouts aus der DB: " + workouts);
+            return ResponseEntity.ok(workouts);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Fehler beim Abrufen der Workouts");
+        }
+    }
 
     @DeleteMapping("/workout/{id}")
     public ResponseEntity<?> deleteWorkout(@PathVariable Long id) {
