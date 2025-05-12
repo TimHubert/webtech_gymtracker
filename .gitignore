@@ -7,15 +7,6 @@
 .classpath
 .settings/
 
-# IntelliJ IDEA
-.idea/
-*.iml
-
-# Eclipse
-.project
-.classpath
-.settings/
-
 # Build Verzeichnisse
 /target/
 /build/
@@ -27,4 +18,5 @@
 *.swp
 *.bak
 
+# Umgebungsvariablen
 .env
