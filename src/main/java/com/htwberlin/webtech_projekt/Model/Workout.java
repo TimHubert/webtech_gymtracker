@@ -1,6 +1,7 @@
 package com.htwberlin.webtech_projekt.Model;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -15,9 +16,6 @@ public class Workout {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Exercise> exercise;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
     public Workout() {
     }
@@ -43,6 +41,7 @@ public class Workout {
         this.name = name;
     }
 
+
     public List<Exercise> getExercise() {
         return exercise;
     }
@@ -51,20 +50,14 @@ public class Workout {
         this.exercise = exercise;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public String toString() {
         return "Workout{" +
                 "name='" + name + '\'' +
                 ", exercise=" + exercise +
-                ", user=" + (user != null ? user.getUsername() : "null") +
                 '}';
     }
 }
+
+
