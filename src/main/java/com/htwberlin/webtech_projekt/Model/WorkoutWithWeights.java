@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 public class WorkoutWithWeights extends Workout {
     private LocalDate date;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<WeightsAndReps> weights;
 
     @Id
