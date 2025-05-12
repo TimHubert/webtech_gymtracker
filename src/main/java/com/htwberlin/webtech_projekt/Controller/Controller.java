@@ -111,6 +111,41 @@ public class Controller {
         }
     }
 
+    @PutMapping("/OneWorkout/{id}")
+    public ResponseEntity<?> updateWorkoutWithWeights(
+            @PathVariable Long id,
+            @RequestBody WorkoutWithWeights workoutWithWeights) {
+        try {
+            // Check if the WorkoutWithWeights exists
+            Optional<WorkoutWithWeights> existingWorkoutWithWeights = workoutWithWeightsRepository.findById(id);
+            if (existingWorkoutWithWeights.isEmpty()) {
+                return ResponseEntity.status(404).body("WorkoutWithWeights with ID " + id + " not found");
+            }
+
+            // Update the associated Workout
+            Workout existingWorkout = existingWorkoutWithWeights.get().getWorkout();
+            Workout updatedWorkout = workoutWithWeights.getWorkout();
+            if (updatedWorkout != null) {
+                existingWorkout.setName(updatedWorkout.getName());
+                existingWorkout.setExercise(updatedWorkout.getExercise());
+                workoutRepository.save(existingWorkout);
+            }
+
+            // Update the WorkoutWithWeights entity
+            WorkoutWithWeights existingEntity = existingWorkoutWithWeights.get();
+            existingEntity.setDate(workoutWithWeights.getDate());
+            existingEntity.setWeights(workoutWithWeights.getWeights());
+            existingEntity.setWorkout(existingWorkout);
+
+            WorkoutWithWeights updatedEntity = workoutWithWeightsRepository.save(existingEntity);
+
+            return ResponseEntity.ok(updatedEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error updating the workout");
+        }
+    }
+
     @GetMapping("/workouts")
     public ResponseEntity<?> getAllWorkouts() {
         try {
