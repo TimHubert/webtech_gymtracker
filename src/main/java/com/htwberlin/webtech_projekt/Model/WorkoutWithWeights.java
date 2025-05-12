@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class WorkoutWithWeights extends Workout {
+public class WorkoutWithWeights {
     private LocalDate date;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -19,12 +19,15 @@ public class WorkoutWithWeights extends Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Workout workout;
+
 
     public WorkoutWithWeights() {
     }
 
     public WorkoutWithWeights(Workout workout, LocalDate date, List<WeightsAndReps> weights) {
-        super(workout.getName(), workout.getExercise());
+        this.workout = workout;
         this.date = date;
         this.weights = weights;
     }
@@ -52,6 +55,14 @@ public class WorkoutWithWeights extends Workout {
 
     public void setWeights(List<WeightsAndReps> weights) {
         this.weights = weights;
+    }
+
+    public Workout getWorkout() {
+        return this.workout;
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
 
     @Override

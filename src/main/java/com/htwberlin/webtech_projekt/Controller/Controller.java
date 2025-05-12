@@ -91,8 +91,24 @@ public class Controller {
     }
 
     @PostMapping("/OneWorkout")
-    public WorkoutWithWeights createWorkoutWithWeights(@RequestBody WorkoutWithWeights WorkoutWithWeights) {
-        return workoutServiceWithWeights.save(WorkoutWithWeights);
+    public ResponseEntity<?> createWorkoutWithWeights(@RequestBody WorkoutWithWeights workoutWithWeights) {
+        try {
+            Workout workout = workoutWithWeights.getWorkout();
+            if (workout == null || workout.getName() == null || workout.getName().isEmpty()) {
+                return ResponseEntity.badRequest().body("Workout-Name ist erforderlich");
+            }
+            if (workoutWithWeights.getWeights() == null || workoutWithWeights.getWeights().isEmpty()) {
+                return ResponseEntity.badRequest().body("Gewichte und Wiederholungen sind erforderlich");
+            }
+            if (workout.getId() == null) {
+                workout = workoutRepository.save(workout);
+            }
+            WorkoutWithWeights savedWorkout = workoutServiceWithWeights.save(workoutWithWeights);
+            return ResponseEntity.status(201).body(savedWorkout);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Fehler beim Speichern des Workouts");
+        }
     }
 
     @GetMapping("/workouts")
