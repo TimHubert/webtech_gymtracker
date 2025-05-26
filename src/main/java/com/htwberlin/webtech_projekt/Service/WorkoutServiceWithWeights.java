@@ -30,4 +30,8 @@ public class WorkoutServiceWithWeights {
     public WorkoutWithWeights findById(Long id) {
         return repository.findById(id).orElse(null);
     }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }

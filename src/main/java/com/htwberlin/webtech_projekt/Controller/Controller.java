@@ -227,5 +227,20 @@ public class Controller {
         }
     }
 
+    @DeleteMapping("/workoutWithWeights/{id}")
+    public ResponseEntity<?> deleteWorkoutWithWeightsById(@PathVariable Long id) {
+        try {
+            WorkoutWithWeights workout = workoutServiceWithWeights.findByIdWithWeights(id);
+            if (workout == null) {
+                return ResponseEntity.status(404).body("Workout with ID " + id + " not found");
+            }
+            workoutServiceWithWeights.deleteById(id);
+            return ResponseEntity.ok(workout );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error retrieving the workout");
+        }
+    }
+
 }
 
