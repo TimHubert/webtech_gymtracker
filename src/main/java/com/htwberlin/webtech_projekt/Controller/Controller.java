@@ -51,7 +51,7 @@ public class Controller {
         exercise.add(new Exercise("Bench Press", "Bench", "Chest"));
         exercise.add(new Exercise("Triceps Extensions", "Cable Tower", "Triceps"));
         exercise.add(new Exercise("Shoulder Press", "Machine", "Shoulders"));
-        Workout workout = new Workout("Push", exercise);
+        Workout workout = new Workout("Push", exercise, true);
         return ResponseEntity.ok(workout);
     }
 
@@ -85,7 +85,7 @@ public class Controller {
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(8, 5, 4)), new ArrayList<>(Arrays.asList(60.0, 60.0, 60.0))));
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(5, 5, 5)), new ArrayList<>(Arrays.asList(60.0, 55.0, 55.0))));
         weights.add(new WeightsAndReps(new ArrayList<>(Arrays.asList(7, 6, 4)), new ArrayList<>(Arrays.asList(50.0, 55.0, 60.0))));
-        Workout workout = new Workout("Push", exercise);
+        Workout workout = new Workout("Push", exercise, true);
         WorkoutWithWeights WorkoutWithWeights = new WorkoutWithWeights(workout, date, weights);
         return ResponseEntity.ok(WorkoutWithWeights);
     }
@@ -241,6 +241,22 @@ public class Controller {
             return ResponseEntity.status(500).body("Error retrieving the workout");
         }
     }
+
+    @PutMapping("/workout/{id}")
+    public ResponseEntity<?> updateWorkout(@PathVariable Long id, @RequestBody Workout workout) {
+        if (!workoutRepository.existsById(id)) {
+            return ResponseEntity.status(404).body("Workout with ID " + id + " not found");
+        }
+        Workout existingWorkout = workoutRepository.findById(id).orElse(null);
+        if (existingWorkout == null) {
+            return ResponseEntity.status(404).body("Workout with ID " + id + " not found");
+        }
+        existingWorkout.setShow(workout.getShow());
+        workoutRepository.save(existingWorkout);
+
+        return ResponseEntity.ok(existingWorkout);
+    }
+
 
 }
 

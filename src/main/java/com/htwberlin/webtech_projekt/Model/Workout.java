@@ -16,13 +16,16 @@ public class Workout {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Exercise> exercise;
 
+    private boolean show;
+
 
     public Workout() {
     }
 
-    public Workout(String name, List<Exercise> exercise) {
+    public Workout(String name, List<Exercise> exercise, boolean show) {
         this.name = name;
         this.exercise = exercise;
+        this.show = show;
     }
 
     public Long getId() {
@@ -50,12 +53,21 @@ public class Workout {
         this.exercise = exercise;
     }
 
+    public boolean getShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
+    }
 
     @Override
     public String toString() {
         return "Workout{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", exercise=" + exercise +
+                ", show=" + show +
                 '}';
     }
 }
