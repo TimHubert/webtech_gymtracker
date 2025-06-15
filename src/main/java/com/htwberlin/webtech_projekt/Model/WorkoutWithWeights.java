@@ -1,5 +1,6 @@
 package com.htwberlin.webtech_projekt.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
@@ -22,6 +23,10 @@ public class WorkoutWithWeights {
     @ManyToOne
     private Workout workout;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore  // Verhindert JSON-Serialisierung der User-Referenz
+    private User user;
 
     public WorkoutWithWeights() {
     }
@@ -30,6 +35,13 @@ public class WorkoutWithWeights {
         this.workout = workout;
         this.date = date;
         this.weights = weights;
+    }
+
+    public WorkoutWithWeights(Workout workout, LocalDate date, List<WeightsAndReps> weights, User user) {
+        this.workout = workout;
+        this.date = date;
+        this.weights = weights;
+        this.user = user;
     }
 
     public Long getId() {
@@ -65,12 +77,20 @@ public class WorkoutWithWeights {
         this.workout = workout;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "WorkoutWithWeights{" +
                 "date=" + date +
                 ", weights=" + weights +
+                ", user=" + (user != null ? user.getUsername() : "null") +
                 '}';
     }
-
 }

@@ -1,5 +1,6 @@
 package com.htwberlin.webtech_projekt.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +19,10 @@ public class Workout {
 
     private boolean show;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore  // Verhindert JSON-Serialisierung der User-Referenz
+    private User user;
 
     public Workout() {
     }
@@ -26,6 +31,13 @@ public class Workout {
         this.name = name;
         this.exercise = exercise;
         this.show = show;
+    }
+
+    public Workout(String name, List<Exercise> exercise, boolean show, User user) {
+        this.name = name;
+        this.exercise = exercise;
+        this.show = show;
+        this.user = user;
     }
 
     public Long getId() {
@@ -61,6 +73,14 @@ public class Workout {
         this.show = show;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Workout{" +
@@ -68,6 +88,7 @@ public class Workout {
                 ", name='" + name + '\'' +
                 ", exercise=" + exercise +
                 ", show=" + show +
+                ", user=" + (user != null ? user.getUsername() : "null") +
                 '}';
     }
 }
