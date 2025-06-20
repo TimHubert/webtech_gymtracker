@@ -9,13 +9,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
         registry.addMapping("/**")
-                .allowedOrigins(
-                        "https://gymtracker-frontend.onrender.com",
-                        "http://localhost:5173",
-                        "http://localhost:5174"
-                )
+                .allowedOriginPatterns("*") // Erlaubt alle Origins für Development/Testing
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
