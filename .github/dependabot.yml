@@ -6,9 +6,9 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "@timhubert"
+      - "timhubert"
     assignees:
-      - "@timhubert"
+      - "timhubert"
     commit-message:
       prefix: "build"
       include: "scope"
@@ -19,9 +19,9 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "@timhubert"
+      - "timhubert"
     assignees:
-      - "@timhubert"
+      - "timhubert"
     commit-message:
       prefix: "ci"
       include: "scope"
@@ -32,9 +32,9 @@ updates:
     schedule:
       interval: "weekly"
     reviewers:
-      - "@timhubert"
+      - "timhubert"
     assignees:
-      - "@timhubert"
+      - "timhubert"
     commit-message:
       prefix: "docker"
       include: "scope"
