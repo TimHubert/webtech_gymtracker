@@ -21,7 +21,7 @@ public class WorkoutServiceWithWeights {
     @Transactional
     public WorkoutWithWeights findByIdWithWeights(Long id) {
         WorkoutWithWeights workout = repository.findById(id).orElse(null);
-        if (workout != null) {
+        if (workout != null && workout.getWeights() != null) {
             workout.getWeights().size(); // Force initialization of the lazy collection
         }
         return workout;
