@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -56,12 +62,23 @@ jobs:
         SPRING_DATASOURCE_PASSWORD: testpassword
         
     - name: Generate test report
-      uses: dorny/test-reporter@v1
       if: success() || failure()
+      run: |
+        echo "Test execution completed"
+        if [ -d "build/test-results/test" ]; then
+          echo "Test results found in build/test-results/test/"
+          ls -la build/test-results/test/
+        fi
+        
+    - name: Publish Test Results as Comment
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always() && github.event_name == 'pull_request'
       with:
-        name: Test Results
-        path: build/test-results/test/*.xml
-        reporter: java-junit
+        files: |
+          build/test-results/test/*.xml
+        check_name: "Test Results"
+        comment_title: "Test Results"
+        fail_on: "nothing"
         
     - name: Upload test results
       uses: actions/upload-artifact@v4
