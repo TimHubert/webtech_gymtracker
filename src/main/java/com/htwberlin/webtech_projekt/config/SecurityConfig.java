@@ -16,6 +16,22 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+/**
+ * Spring Security Configuration for JWT-based REST API
+ * 
+ * Security Design:
+ * - Stateless authentication using JWT tokens
+ * - CSRF protection disabled (appropriate for stateless APIs)
+ * - CORS enabled for cross-origin requests
+ * - Session management disabled (stateless)
+ * 
+ * CSRF Rationale:
+ * CSRF protection is intentionally disabled because:
+ * 1. This is a stateless API using JWT tokens
+ * 2. JWT tokens in Authorization headers are not automatically 
+ *    sent by browsers, preventing CSRF attacks
+ * 3. No session cookies are used that could be exploited
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -26,7 +42,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
+            // CSRF protection configuration for JWT-based stateless API
+            // CSRF is not needed for stateless APIs using JWT tokens
+            // as JWT tokens themselves provide protection against CSRF attacks
+            .csrf(csrf -> {
+                // For a pure stateless API with JWT authentication, CSRF protection
+                // is unnecessary and actually interferes with API functionality
+                // This is a security best practice for JWT-based APIs
+                csrf.disable();
+            })
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
